@@ -85,5 +85,9 @@
     "patchedDependencies": {
       "@ledgerhq/connect-kit-loader@1.1.2": "patches/@ledgerhq__connect-kit-loader@1.1.2.patch"
     }
+  },
+  "resolutions": {
+    "wagmi": "2.12.25",
+    "@metamask/sdk": "0.30.1"
   }
 }
