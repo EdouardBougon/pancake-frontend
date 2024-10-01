@@ -1,13 +1,14 @@
 import { getWagmiConnectorV2 } from '@binance/w3w-wagmi-connector-v2'
 import { cyberWalletConnector as createCyberWalletConnector, isCyberWallet } from '@cyberlab/cyber-app-sdk'
 import { blocto } from '@pancakeswap/wagmi/connectors/blocto'
+import { BASE_URL } from 'config'
 import { CHAINS } from 'config/chains'
 import { PUBLIC_NODES } from 'config/nodes'
 import memoize from 'lodash/memoize'
 import { Transport } from 'viem'
 import { createConfig, fallback, http } from 'wagmi'
 import { mainnet } from 'wagmi/chains'
-import { coinbaseWallet, injected, safe, walletConnect, metaMask } from 'wagmi/connectors'
+import { coinbaseWallet, injected, metaMask, safe, walletConnect } from 'wagmi/connectors'
 import { CLIENT_CONFIG, publicClient } from './viem'
 
 export const chains = CHAINS
@@ -33,7 +34,15 @@ export const walletConnectNoQrCodeConnector = walletConnect({
   projectId: 'e542ff314e26ff34de2d4fba98db70bb',
 })
 
-export const metaMaskConnector = metaMask()
+export const metaMaskConnector = metaMask({
+  dappMetadata: {
+    name: 'PancakeSwap',
+    iconUrl: 'https://pancakeswap.com/logo.png',
+    url: BASE_URL,
+  },
+  headless: true,
+})
+
 export const trustConnector = injected({ target: 'trust', shimDisconnect: false })
 
 const bloctoConnector = blocto({
