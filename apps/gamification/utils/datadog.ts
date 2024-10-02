@@ -1,16 +1,18 @@
-import { datadogLogs, LogsInitConfiguration } from '@datadog/browser-logs'
+import { LogsInitConfiguration, datadogLogs } from '@datadog/browser-logs'
 import { datadogRum as ddRum } from '@datadog/browser-rum'
 
 try {
-  datadogLogs.init({
-    clientToken: process.env.NEXT_PUBLIC_DATADOG_CLIENT_TOKEN || '',
-    env: process.env.NEXT_PUBLIC_VERCEL_ENV,
-    version: process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA,
-    site: process.env.NEXT_PUBLIC_DD_RUM_SITE || '',
-    forwardErrorsToLogs: true,
-    sessionSampleRate: 100,
-    service: 'pancakeswap-web',
-  })
+  if (process.env.NEXT_PUBLIC_DATADOG_CLIENT_TOKEN !== undefined) {
+    datadogLogs.init({
+      clientToken: process.env.NEXT_PUBLIC_DATADOG_CLIENT_TOKEN || '',
+      env: process.env.NEXT_PUBLIC_VERCEL_ENV,
+      version: process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA,
+      site: process.env.NEXT_PUBLIC_DD_RUM_SITE || '',
+      forwardErrorsToLogs: true,
+      sessionSampleRate: 100,
+      service: 'pancakeswap-web',
+    })
+  }
 } catch (e) {
   console.error(e)
 }
@@ -37,7 +39,7 @@ function createDatadogRumManager() {
   let initialized = false
 
   function init() {
-    if (initialized) {
+    if (initialized || process.env.NEXT_PUBLIC_DATADOG_CLIENT_TOKEN === undefined) {
       return
     }
     const env = process.env.NEXT_PUBLIC_VERCEL_ENV
