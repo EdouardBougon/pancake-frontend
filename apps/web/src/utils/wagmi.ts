@@ -1,6 +1,7 @@
 import { getWagmiConnectorV2 } from '@binance/w3w-wagmi-connector-v2'
 import { cyberWalletConnector as createCyberWalletConnector, isCyberWallet } from '@cyberlab/cyber-app-sdk'
 import { blocto } from '@pancakeswap/wagmi/connectors/blocto'
+import { BASE_URL } from 'config'
 import { CHAINS } from 'config/chains'
 import { PUBLIC_NODES } from 'config/nodes'
 import memoize from 'lodash/memoize'
@@ -37,6 +38,7 @@ export const metaMaskConnector = metaMask({
   dappMetadata: {
     name: 'PancakeSwap',
     iconUrl: 'https://pancakeswap.com/logo.png',
+    url: BASE_URL,
   },
   headless: true,
 })

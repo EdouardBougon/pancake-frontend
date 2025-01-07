@@ -35,6 +35,12 @@ const createQrCode =
     if (!selectedConnector) {
       return ''
     }
+
+    const isMetaMaskInstalled = isMobile ? false : typeof window !== 'undefined' && window.ethereum?.isMetaMask === true
+    if (connectorId === ConnectorNames.MetaMask && isMetaMaskInstalled) {
+      return ''
+    }
+
     // HACK: utilizing event emitter from connector to notify wagmi of the connect events
     const connector =
       selectedConnector.id === ConnectorNames.Injected
