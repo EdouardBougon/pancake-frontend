@@ -26,6 +26,8 @@ How to start
 
 ```sh
 pnpm i
+
+pnpm build:packages
 ```
 
 start the development server
