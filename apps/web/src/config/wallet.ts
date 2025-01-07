@@ -58,7 +58,6 @@ const createQrCode =
 
     return new Promise<string>((resolve) => {
       // Wagmi v2 doesn't have a return type for provider yet
-      // @ts-expect-error
       provider.on('display_uri', (uri) => {
         resolve(uri)
       })
