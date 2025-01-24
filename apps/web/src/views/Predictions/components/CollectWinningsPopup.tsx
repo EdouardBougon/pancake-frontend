@@ -119,7 +119,7 @@ const Popup = styled.div`
   padding: 16px 8px;
 `
 
-let timer: number
+let timer: NodeJS.Timeout
 
 const CollectWinningsPopup = () => {
   const [isOpen, setIsOpen] = useState(false)
